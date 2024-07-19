@@ -22,7 +22,8 @@ public abstract class MoneyTransferPlatform {
         if (amount >= 0 && this.balance >= amount)
             return true;
 
-        System.out.println("Transaction Failed: Not enough money in the sender's balance.");
+        System.out.println("Transaction Failed: Not enough money in the sender's balance."
+                +"\namount required: "+amount +" but current balance is: "+this.balance);
         return false;
     }
 

@@ -1,7 +1,5 @@
 package residentials;
 
-import individuals.Landlord;
-
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -42,6 +40,15 @@ public class Villa extends Residence{
         return getDailyPrice() * daysBetween * VILLA_TAX;
     }
 
+    @Override
+    public void printRentingDetails(LocalDate startDate, LocalDate endDate) {
+        long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
+
+        System.out.println("Renting Details:\nrenting price per day: "+getDailyPrice()
+                +"\nnumber of renting days: "+daysBetween
+                +"\nstudio tax: "+VILLA_TAX
+                +"\ntotal: "+(getDailyPrice() * daysBetween *  VILLA_TAX));
+    }
     @Override
     public String toString() {
         return super.toString()+ ", hasPool:" + hasPool +

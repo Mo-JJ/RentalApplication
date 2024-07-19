@@ -1,7 +1,6 @@
 package individuals;
 
 import financials.MoneyTransferPlatform;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;

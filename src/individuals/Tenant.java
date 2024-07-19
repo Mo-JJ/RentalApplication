@@ -2,7 +2,6 @@ package individuals;
 
 import financials.MoneyTransferPlatform;
 import residentials.RentalLease;
-
 import java.util.HashMap;
 import java.util.Map;
 

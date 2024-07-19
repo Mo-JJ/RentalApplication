@@ -128,8 +128,9 @@ public abstract class Residence implements Rentable{
                     tenantPayChannel.processPayment(rentingPrice, landlord.getMoneyTransferChannel());
                     ((Tenant)tenant).addNewRentLease(lease);
                     System.out.println("Renting process is finished.");
+                    this.printRentingDetails(startDate, endDate);
                 }else
-                    System.out.println("An owner can't rent and be a tenant.");
+                    System.out.println("the provided id belongs to an owner, an owner can't rent and be a tenant.");
             }
         }
     }
@@ -155,6 +156,7 @@ public abstract class Residence implements Rentable{
         return getClass().getSimpleName()+":{" +
                 "residenceId:" + residenceId +
                 ", area:" + area +
+                ", dailyPrice:" + dailyPrice +
                 ", numberOfRooms:" + numberOfRooms +
                 ", address:" + address;
     }

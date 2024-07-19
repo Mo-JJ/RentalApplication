@@ -6,10 +6,7 @@ import financials.Visa;
 import individuals.Citizen;
 import individuals.Landlord;
 import individuals.Tenant;
-import residentials.Rentable;
-import residentials.RentalLease;
-import residentials.Residence;
-import residentials.Studio;
+import residentials.*;
 import serializations.LocalDateSerializer;
 import serializations.AbstractClassAdapter;
 import java.io.FileReader;
@@ -28,8 +25,6 @@ public class Main {
     private static final String ClASS_TYPE = "CLASS_TYPE";
     private static final Scanner scanner = new Scanner(System.in);
 
-
-
     public static void main(String[] args) {
         initializeGson();
         createSomeDefaultObjects();
@@ -45,38 +40,28 @@ public class Main {
         while (true) {
             printMenu();
             int choice = scanner.nextInt();
-            scanner.nextLine();  // consume newline
+            scanner.nextLine();
 
             switch (choice) {
-                case 1:
-                    createCitizen();
-                    break;
-                case 2:
-//                    createResidence();
-                    break;
-                case 3:
-                    rentResidence();
-                    break;
-                case 4:
-                    printCitizens();
-                    break;
-                case 5:
-                    printResidences();
-                    break;
-                case 6:
-                    printRentalLeases();
-                    break;
-                case 7:
+                case 1 -> createCitizen();
+                case 2 -> createResidence();
+                case 3 -> rentResidence();
+                case 4 -> saveWorkToFiles();
+                case 5 -> printCitizens();
+                case 6 -> printResidences();
+                case 7 -> printRentalLeases();
+                case 8 -> {
                     System.out.println("Exiting...");
                     return;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
+                }
+                default -> System.out.println("Invalid choice. Please try again.");
             }
         }
 
 
     }
 
+    // files interaction
     private static void initializeGson() {
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateSerializer());
@@ -196,14 +181,16 @@ public class Main {
 
     // command line user interaction
     private static void printMenu() {
+        System.out.println("Welcome to my rental application.");
         System.out.println("Choose an option (number):");
         System.out.println("1. Create Citizen");
         System.out.println("2. Create Residence");
         System.out.println("3. Rent Residence");
-        System.out.println("4. Print Citizens");
-        System.out.println("5. Print Residences");
-        System.out.println("6. Print Rental Leases");
-        System.out.println("7. Exit");
+        System.out.println("4. Save All Work");
+        System.out.println("5. Print Citizens");
+        System.out.println("6. Print Residences");
+        System.out.println("7. Print Rental Leases");
+        System.out.println("8. Exit");
     }
 
     private static void createCitizen() {
@@ -228,7 +215,7 @@ public class Main {
                     System.out.println("Enter email: ");
                     String email = scanner.nextLine();
 
-                    System.out.println("Enter balance: ");
+                    System.out.println("Enter balance (in dollars): ");
                     double balance = scanner.nextDouble();
                     scanner.nextLine();
                     platform = new PayPal(balance, email);
@@ -249,7 +236,7 @@ public class Main {
             if (type.equalsIgnoreCase("tenant")) {
                 citizen = new Tenant(name, platform);
             } else {
-                System.out.println("Enter contact:");
+                System.out.println("Enter contact (your email, phone number or any way):");
                 String contact = scanner.nextLine();
                 citizen = new Landlord(name, platform, contact);
             }
@@ -258,23 +245,98 @@ public class Main {
             break;
         }
     }
+    private static void createResidence() {
 
-    private static void rentResidence() {
-        System.out.println("Enter tenant ID:");
-        int tenantId = scanner.nextInt();
-        System.out.println("Enter landlord ID:");
+        Residence residence;
+        String type;
+        while (true) {
+            System.out.println("Enter residence type (studio/villa):");
+            type = scanner.nextLine();
+
+            if (!type.equalsIgnoreCase("studio") && !type.equalsIgnoreCase("villa"))
+                System.out.println("Invalid residence type.");
+            else
+                break;
+        }
+
+        System.out.println("Enter residence ID (characters allowed too):");
+        String residenceId = scanner.nextLine();
+
+        System.out.println("Enter residence area (squared meters):");
+        double area = scanner.nextDouble();
+        scanner.nextLine();
+
+        System.out.println("Enter number of rooms:");
+        short numberOfRooms = scanner.nextShort();
+
+        String address = scanner.nextLine();
+
+        System.out.println("Enter the residence daily renting price (dollars):");
+        double dailyPrice = scanner.nextDouble();
+        scanner.nextLine();
+
+
+        System.out.println("Enter landlord Id:");
         int landlordId = scanner.nextInt();
         scanner.nextLine();
+
+        if (type.equalsIgnoreCase("studio")) {
+            System.out.println("Enter the floor number:");
+            short floorNumber = scanner.nextShort();
+            scanner.nextLine();
+
+            System.out.println("Enter unit (apartment) number:");
+            int unitNumber = scanner.nextInt();
+            scanner.nextLine();
+
+            residence =  new Studio(residenceId, area, numberOfRooms, address, dailyPrice,
+                                        floorNumber, unitNumber, landlordId);
+        } else{
+            boolean hasBool;
+            while (true) {
+                System.out.println("Does it have a pool? (yes or no).");
+                String input = scanner.nextLine().trim().toLowerCase();
+                if (input.equals("yes") || input.equals("y")) {
+                    hasBool = true;
+                    break;
+                } else if (input.equals("no") || input.equals("n")) {
+                    hasBool = false;
+                    break;
+                } else {
+                    System.out.println("Invalid input. Please enter 'yes' or 'no'.");
+                }
+            }
+
+            System.out.println("Enter garden size:");
+            double gardenSize = scanner.nextDouble();
+            scanner.nextLine();
+            residence = new Villa(residenceId, area, numberOfRooms, address,
+                                        dailyPrice, hasBool, gardenSize, landlordId);
+        }
+        System.out.println("The received residence information:");
+        System.out.println(residence);
+    }
+
+    private static void rentResidence() {
         System.out.println("Enter residence ID:");
         String residenceId = scanner.nextLine();
+
+        if (!Residence.getResidences().containsKey(residenceId)){
+            System.out.println("No residence id exist with this id: "+residenceId);
+            return;
+        }
+        Residence residence = Residence.getResidences().get(residenceId);
+
+        System.out.println("Enter tenant ID:");
+        int tenantId = scanner.nextInt();
+        scanner.nextLine();
+
         System.out.println("Enter start date (YYYY-MM-DD):");
         LocalDate start = LocalDate.parse(scanner.nextLine());
         System.out.println("Enter end date (YYYY-MM-DD):");
         LocalDate end = LocalDate.parse(scanner.nextLine());
 
-        RentalLease lease = new RentalLease(tenantId, landlordId, residenceId, start, end);
-        System.out.println("The provided rental lease information: ");
-        System.out.println(lease);
+        residence.rent(tenantId, start, end);
     }
 
     private static void printCitizens() {

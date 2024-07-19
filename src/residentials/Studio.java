@@ -1,6 +1,5 @@
 package residentials;
 
-
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -42,6 +41,15 @@ public class Studio extends Residence{
     public double calculateRentingPrice(LocalDate startDate, LocalDate endDate) {
         long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
         return getDailyPrice() * daysBetween *  STUDIO_TAX;
+    }
+    @Override
+    public void printRentingDetails(LocalDate startDate, LocalDate endDate) {
+        long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
+
+        System.out.println("Renting Details:\nrenting price per day: "+getDailyPrice()
+                +"\nnumber of renting days: "+daysBetween
+                +"\nstudio tax: "+STUDIO_TAX
+                +"\ntotal: "+(getDailyPrice() * daysBetween *  STUDIO_TAX));
     }
 
     @Override
