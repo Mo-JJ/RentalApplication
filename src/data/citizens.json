@@ -1,0 +1,45 @@
+{
+  "1": {
+    "rentalHistory": {
+      "eta_4587-1": {
+        "tenantId": 1,
+        "landlordId": 2,
+        "residenceId": "eta_4587-1",
+        "start": "2024-11-15",
+        "end": "2024-11-18"
+      }
+    },
+    "idNumber": 1,
+    "name": "John Lock",
+    "moneyTransferChannel": {
+      "email": "John_lock@gmail.com",
+      "balance": 0.0,
+      "CLASS_TYPE": "financials.PayPal"
+    },
+    "CLASS_TYPE": "individuals.Tenant"
+  },
+  "2": {
+    "contact": "+972578342949",
+    "rentableRealEstates": {
+      "eta_4587-1": {
+        "floorNumber": 2,
+        "unitNumber": 1,
+        "residenceId": "eta_4587-1",
+        "area": 90.5,
+        "numberOfRooms": 2,
+        "address": "Ramallah Albireh Berlin st. 84",
+        "dailyPrice": 20.0,
+        "landlordId": 2,
+        "CLASS_TYPE": "residentials.Studio"
+      }
+    },
+    "idNumber": 2,
+    "name": "Tim Watley",
+    "moneyTransferChannel": {
+      "cardNumber": "cx_1294",
+      "balance": 5172.0,
+      "CLASS_TYPE": "financials.Visa"
+    },
+    "CLASS_TYPE": "individuals.Landlord"
+  }
+}

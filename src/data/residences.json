@@ -1,0 +1,13 @@
+{
+  "eta_4587-1": {
+    "floorNumber": 2,
+    "unitNumber": 1,
+    "residenceId": "eta_4587-1",
+    "area": 90.5,
+    "numberOfRooms": 2,
+    "address": "Ramallah Albireh Berlin st. 84",
+    "dailyPrice": 20.0,
+    "landlordId": 2,
+    "CLASS_TYPE": "residentials.Studio"
+  }
+}
