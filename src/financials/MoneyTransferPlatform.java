@@ -28,7 +28,8 @@ public abstract class MoneyTransferPlatform {
     }
 
     public void processPayment(double amount, MoneyTransferPlatform receiverPlatform) {
-        System.out.println("Trying to Process the Transaction...");
+        System.out.println("------ Trying to Process the Transaction ------");
+
         if (isPaymentAllowed(amount)){
             this.balance -= amount;
             receiverPlatform.balance += amount;

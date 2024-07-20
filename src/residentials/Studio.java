@@ -45,11 +45,12 @@ public class Studio extends Residence{
     @Override
     public void printRentingDetails(LocalDate startDate, LocalDate endDate) {
         long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
+        System.out.println("------ Renting Details ------");
 
-        System.out.println("Renting Details:\nrenting price per day: "+getDailyPrice()
-                +"\nnumber of renting days: "+daysBetween
-                +"\nstudio tax: "+STUDIO_TAX
-                +"\ntotal: "+(getDailyPrice() * daysBetween *  STUDIO_TAX));
+        System.out.println("Renting price per day: $"+getDailyPrice()
+                +"\nNumber of renting days: "+daysBetween
+                +"\nStudio tax: %"+(STUDIO_TAX*100%100)
+                +"\nTotal: $"+(getDailyPrice() * daysBetween *  STUDIO_TAX));
     }
 
     @Override

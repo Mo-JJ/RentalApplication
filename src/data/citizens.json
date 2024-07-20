@@ -21,6 +21,28 @@
   "2": {
     "contact": "+972578342949",
     "rentableRealEstates": {
+      "std-850-1": {
+        "floorNumber": 2,
+        "unitNumber": 1,
+        "residenceId": "std-850-1",
+        "area": 180.0,
+        "numberOfRooms": 2,
+        "address": "Jericho Morroco st. 12",
+        "dailyPrice": 20.0,
+        "landlordId": 2,
+        "CLASS_TYPE": "residentials.Studio"
+      },
+      "std-850": {
+        "hasPool": true,
+        "gardenSize": 30.0,
+        "residenceId": "std-850",
+        "area": 210.5,
+        "numberOfRooms": 5,
+        "address": "Nablus future st. 1",
+        "dailyPrice": 85.0,
+        "landlordId": 2,
+        "CLASS_TYPE": "residentials.Villa"
+      },
       "eta_4587-1": {
         "floorNumber": 2,
         "unitNumber": 1,
@@ -38,29 +60,6 @@
     "moneyTransferChannel": {
       "cardNumber": "cx_1294",
       "balance": 5172.0,
-      "CLASS_TYPE": "financials.Visa"
-    },
-    "CLASS_TYPE": "individuals.Landlord"
-  },
-  "3": {
-    "rentalHistory": {},
-    "idNumber": 3,
-    "name": "Suzan Lock",
-    "moneyTransferChannel": {
-      "email": "suzan_lock@gmail.com",
-      "balance": 582.0,
-      "CLASS_TYPE": "financials.PayPal"
-    },
-    "CLASS_TYPE": "individuals.Tenant"
-  },
-  "4": {
-    "contact": "jasser@gmail.com",
-    "rentableRealEstates": {},
-    "idNumber": 4,
-    "name": "jaser hayyas",
-    "moneyTransferChannel": {
-      "cardNumber": "sfk-85",
-      "balance": 3100.0,
       "CLASS_TYPE": "financials.Visa"
     },
     "CLASS_TYPE": "individuals.Landlord"

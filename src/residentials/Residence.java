@@ -127,8 +127,8 @@ public abstract class Residence implements Rentable{
                     MoneyTransferPlatform tenantPayChannel = tenant.getMoneyTransferChannel();
                     tenantPayChannel.processPayment(rentingPrice, landlord.getMoneyTransferChannel());
                     ((Tenant)tenant).addNewRentLease(lease);
-                    System.out.println("Renting process is finished.");
                     this.printRentingDetails(startDate, endDate);
+                    System.out.println("------ Renting process is finished ------\n");
                 }else
                     System.out.println("the provided id belongs to an owner, an owner can't rent and be a tenant.");
             }

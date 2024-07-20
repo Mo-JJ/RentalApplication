@@ -44,10 +44,10 @@ public class Villa extends Residence{
     public void printRentingDetails(LocalDate startDate, LocalDate endDate) {
         long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
 
-        System.out.println("Renting Details:\nrenting price per day: "+getDailyPrice()
+        System.out.println("Renting Details:\nrenting price per day: $"+getDailyPrice()
                 +"\nnumber of renting days: "+daysBetween
-                +"\nstudio tax: "+VILLA_TAX
-                +"\ntotal: "+(getDailyPrice() * daysBetween *  VILLA_TAX));
+                +"\nstudio tax: %"+(VILLA_TAX*100%100)
+                +"\ntotal: $"+(getDailyPrice() * daysBetween *  VILLA_TAX));
     }
     @Override
     public String toString() {

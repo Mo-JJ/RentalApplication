@@ -1,4 +1,26 @@
 {
+  "std-850-1": {
+    "floorNumber": 2,
+    "unitNumber": 1,
+    "residenceId": "std-850-1",
+    "area": 180.0,
+    "numberOfRooms": 2,
+    "address": "Jericho Morroco st. 12",
+    "dailyPrice": 20.0,
+    "landlordId": 2,
+    "CLASS_TYPE": "residentials.Studio"
+  },
+  "std-850": {
+    "hasPool": true,
+    "gardenSize": 30.0,
+    "residenceId": "std-850",
+    "area": 210.5,
+    "numberOfRooms": 5,
+    "address": "Nablus future st. 1",
+    "dailyPrice": 85.0,
+    "landlordId": 2,
+    "CLASS_TYPE": "residentials.Villa"
+  },
   "eta_4587-1": {
     "floorNumber": 2,
     "unitNumber": 1,

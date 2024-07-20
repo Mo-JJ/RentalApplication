@@ -27,16 +27,20 @@ public class Main {
 
     public static void main(String[] args) {
         initializeGson();
-        createSomeDefaultObjects();
+        // TODO:
+        // Feel free to remove/ comment out the createSampleObjects(); and/or loadAllFiles(); methods call
+        // I made these methods to make it easy for you to start with the app even if you don't read the classes' schemes
+        createSampleObjects();
         loadAllFiles();
 
-        MoneyTransferPlatform mtp4 = new PayPal(582,"suzan_lock@gmail.com");
-        Citizen tenant4 = new Tenant("Suzan Lock", mtp4);
+        // Example of creating a tenant (unlike the sample objects this won't be saved to files
+        // unless you choose that option from menu).
+        Citizen tenant4 = new Tenant("Suzan Lock",
+                                    new PayPal(582,"suzan_lock@gmail.com"));
 
         System.out.println(tenant4);
-        System.out.println(Citizen.getCitizens());
 
-
+        // main part where you will interact with the app in your own way.
         while (true) {
             printMenu();
             int choice = scanner.nextInt();
@@ -57,8 +61,6 @@ public class Main {
                 default -> System.out.println("Invalid choice. Please try again.");
             }
         }
-
-
     }
 
     // files interaction
@@ -70,34 +72,51 @@ public class Main {
         gsonBuilder.registerTypeAdapter(Residence.class, new AbstractClassAdapter());
         gson = gsonBuilder.setPrettyPrinting().create();
     }
-    private static void createSomeDefaultObjects(){
+    private static void createSampleObjects(){
+        System.out.println("------ Creating Sample Objects ------");
         MoneyTransferPlatform mtp1 = new PayPal(72,"John_lock@gmail.com");
         Citizen tenant1 = new Tenant("John Lock", mtp1);
 
         MoneyTransferPlatform mtp2 = new Visa(5100, "cx_1294");
         Citizen landlord1 = new Landlord("Tim Watley", mtp2, "+972578342949");
 
-        Residence residence = new Studio("eta_4587", 90.5, (short) 2, "Ramallah Albireh Berlin st. 84",
+        Residence residence1 = new Studio("eta_4587", 90.5, (short) 2, "Ramallah Albireh Berlin st. 84",
                 20.0, (short) 2, 1, landlord1.getIdNumber());
 
 
-        residence.rent(tenant1.getIdNumber(),
+        Residence residence2 = new Studio("std-850", 180, (short) 2, "Jericho Morroco st. 12",
+                20.0, (short) 2, 1, landlord1.getIdNumber());
+
+        Residence residence3 = new Villa("std-850", 210.5, (short) 5, "Nablus future st. 1",
+                85.0, true, 30, landlord1.getIdNumber());
+
+
+        residence1.rent(tenant1.getIdNumber(),
                 LocalDate.of(2024, 11, 15),
                 LocalDate.of(2024, 11, 18));
 
         saveWorkToFiles();
+        System.out.println("------ Finished Creating Sample Objects ------\n");
     }
     private static void loadAllFiles(){
+        System.out.println("------ Loading File Data ------");
         loadCitizensFromJsonFile();
         loadResidencesFromJsonFile();
         loadLeasesFromJsonFile();
+        System.out.println("------ Finished Loading File Data ------\n");
     }
     private static void saveWorkToFiles(){
+        System.out.println("------ Trying to Save Work to Files ------");
+
         saveMapToFile(CITIZENS_FILE_PATH, Citizen.getCitizens(), "Citizens");
         saveMapToFile(RESIDENCES_FILE_PATH, Residence.getResidences(), "Residences");
         saveLeasesToJsonFile();
+        System.out.println("------ Saving to Files is Finished ------");
+
     }
     private static void saveMapToFile(String filePath, Map<?,?> map, String message){
+        System.out.println("------ Trying to Save "+message+" ------");
+
         String jsonString = gson.toJson(map);
         JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
 
@@ -118,7 +137,7 @@ public class Main {
             FileWriter writer = new FileWriter(filePath);
             writer.write(modifiedJsonString);
             writer.close();
-            System.out.println(message+" successfully written to JSON file: "+filePath);
+            System.out.println(message+" successfully saved to JSON file: "+filePath);
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -130,7 +149,6 @@ public class Main {
             Type type = new TypeToken<HashMap<Integer, Citizen>>() {}.getType();
             HashMap<Integer, Citizen> citizens = gson.fromJson(jsonObject, type);
             Citizen.setCitizens(citizens);
-            System.out.println(Citizen.getCitizens());
             System.out.println("Successfully loaded data from JSON file: " + CITIZENS_FILE_PATH);
         } catch (IOException e) {
             e.printStackTrace();
@@ -138,12 +156,14 @@ public class Main {
 
     }
     private static void saveLeasesToJsonFile(){
+        System.out.println("------ Trying to Save Rental Leases ------");
+
         String jsonString = gson.toJson(RentalLease.getLeases());
         try {
             FileWriter writer = new FileWriter(RENTAL_LEASES_FILE_PATH);
             writer.write(jsonString);
             writer.close();
-            System.out.println("Rental leases successfully written to JSON file: "+RENTAL_LEASES_FILE_PATH);
+            System.out.println("Rental leases successfully saved to JSON file: "+RENTAL_LEASES_FILE_PATH);
         }catch (IOException e){
             e.printStackTrace();
         }
@@ -155,7 +175,6 @@ public class Main {
             Type type = new TypeToken<LinkedList<RentalLease>>() {}.getType();
            List<RentalLease> rentalLeases = gson.fromJson(jsonArray, type);
             RentalLease.setLeases(rentalLeases);
-            System.out.println(RentalLease.getLeases());
             System.out.println("Successfully loaded data from JSON file: " + RENTAL_LEASES_FILE_PATH);
         } catch (IOException e) {
             e.printStackTrace();
@@ -170,7 +189,6 @@ public class Main {
             Type type = new TypeToken<HashMap<String, Residence>>() {}.getType();
             HashMap<String, Residence> residences = gson.fromJson(jsonObject, type);
             Residence.setResidences(residences);
-            System.out.println(Residence.getResidences());
             System.out.println("Successfully loaded data from JSON file: " + RESIDENCES_FILE_PATH);
         } catch (IOException e) {
             e.printStackTrace();

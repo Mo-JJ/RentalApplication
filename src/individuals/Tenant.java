@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Tenant extends Citizen{
-
     private Map<String, RentalLease> rentalHistory;
 
     public Tenant(String name, MoneyTransferPlatform moneyTransferChannel) {
@@ -17,7 +16,6 @@ public class Tenant extends Citizen{
     public Map<String, RentalLease> getRentalHistory() {
         return rentalHistory;
     }
-
     public void setRentalHistory(Map<String, RentalLease> rentalHistory) {
         if (rentalHistory ==null)
             this.rentalHistory = new HashMap<>();
@@ -30,7 +28,6 @@ public class Tenant extends Citizen{
         else
             rentalHistory.put(lease.getResidenceId(), lease);
     }
-
     @Override
     public String toString() {
         return super.toString()
